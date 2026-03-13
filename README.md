@@ -41,7 +41,7 @@ Enable function keys by default — recommended for VS Code and other dev tools:
 | Action | Shortcut |
 |--------|----------|
 | Spotlight (app launcher + search) | <kbd>Cmd+Space</kbd> |
-| Switch between apps | <kbd>Cmd+Tab</kbd> |
+| Switch between apps (eg VS Code, Terminal) | <kbd>Cmd+Tab</kbd> |
 | Switch windows within same app | <kbd>Cmd+`</kbd> |
 | Quit app (fully) | <kbd>Cmd+Q</kbd> |
 | Hide app | <kbd>Cmd+H</kbd> |
@@ -68,6 +68,11 @@ From the **View** menu, enable:
 - **Show Toolbar**
 - **Show Path Bar**
 - **Show Status Bar**
+
+### Open Terminal in folder
+
+From the file path at the bottom of Finder, right mouse click on the desired location on the path and select "Open in Terminal".
+
 
 ### Quick Look
 
@@ -208,4 +213,9 @@ Ensure these start automatically at login:
 - Teampaper Snap
 - MonitorControl
 - Rectangle or Magnet (if using)
+
+## Productivity apps
+
+- macOS includes free Pages (Word equiv), Numbers (Excel), Keynote (Powerpoint).
+- MS Office on macOS is very good, Outlook very good, as is OneDrive and OneNote.
 
