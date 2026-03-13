@@ -219,3 +219,15 @@ Ensure these start automatically at login:
 - macOS includes free Pages (Word equiv), Numbers (Excel), Keynote (Powerpoint).
 - MS Office on macOS is very good, Outlook very good, as is OneDrive and OneNote.
 
+## Microcontroller Dev
+
+For C dev
+
+### Espressif
+
+- Install the [Espressif VS Code](https://marketplace.visualstudio.com/items?itemName=espressif.esp-idf-extension) Extension, and then follow the instructions in the welcome page to install the SDK.
+
+### Raspberry Pi Pico
+
+- Install the [Raspberry Pi Pico](https://marketplace.visualstudio.com/items?itemName=raspberry-pi.raspberry-pi-pico) extension, and then follow the instructions in the welcome page to install the SDK.
+
