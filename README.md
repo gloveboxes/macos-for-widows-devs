@@ -240,6 +240,6 @@ For C dev
     ```sh
     brew install --cask github-copilot-for-xcode
     ```
-    
-3. From Intelligence menu, enable "Allow external agents to use Xcode tools
 
+3. From Intelligence menu, enable "Allow external agents to use Xcode tools
+4. As of March 2026, Claude Sonnet 4.6 is a fun experience building your first macOS app.
