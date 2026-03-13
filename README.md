@@ -1,138 +1,211 @@
-# Tips and Tricks for Windows users new to macOS 
+# macOS Tips and Tricks for Windows Users
 
-## Settings
+A practical guide for developers making the switch from Windows to macOS.
 
-Desktop & Dock
+## Key Differences to Know First
 
-- Enable "minimize windows to application icon"
-- Reduce the size of the dock
-- Auto hide/show the dock
+Before diving into settings, here are the fundamental mental model shifts:
 
-Menu bar
+| Windows | macOS |
+|---------|-------|
+| <kbd>Ctrl</kbd> | <kbd>Cmd</kbd> (for most shortcuts) |
+| <kbd>Alt</kbd> | <kbd>Option</kbd> |
+| <kbd>Backspace</kbd> | <kbd>Delete</kbd> — use <kbd>Fn+Delete</kbd> for forward delete |
+| Task Manager | Activity Monitor |
+| File Explorer | Finder |
+| Start Menu / search | Spotlight (<kbd>Cmd+Space</kbd>) |
 
-- Clock - date/time only
-- unselect Spotlight
-- select weather
+> **Important:** Closing a window (clicking the red ×) does **not** quit the app on macOS — the app keeps running in the Dock. Use <kbd>Cmd+Q</kbd> to fully quit.
 
-Keyboard
+## System Settings
 
-Prefer that the keyboard defaults to function keys, good for vs code etc
+### Desktop & Dock
 
-- Keyboard -> keyboard shortcuts -> Function Keys -> enable use function keys
-- Tips: 
-    - MacBook keyboard has no backspace key, simply press and hold fn key and press delete key for Windows backspace equivalent.
-    - cmd + spacebar to open spotlight, 99% of time I'll open apps with this combo.
+- Enable **Minimize windows to application icon** — keeps the Dock uncluttered
+- Reduce Dock size and enable **Auto-hide/show**
 
-Mouse direction
+### Menu Bar
 
-For Windows users here are some tips esp if using both Windows and macOS and frustrated with macOS scrolling direction.
+- Clock → show date and time only
+- Deselect Spotlight (redundant once you learn <kbd>Cmd+Space</kbd>)
+- Add Weather widget
 
-Mouse
+### Keyboard
 
-- Set natural scrolling, but this does provide odd behaviour for trackpad
-- best solution is if you have a logitech mouse is to set perferred scrolling direction if you are coming from Windows
-    - [Logi Options+](https://www.logitech.com/en-au/software/options.html)
-- Note, for Windows users not using Logitech mouse, there is a stand along util for overriding std macOS behaviour.
+Enable function keys by default — recommended for VS Code and other dev tools:
 
-## Finder
+**System Settings → Keyboard → Keyboard Shortcuts → Function Keys → Use F1, F2, etc. as standard function keys**
 
-From the view menu
+#### Essential Keyboard Shortcuts
 
-- Show toolbar
-- Show path bar
-- show status bar
+| Action | Shortcut |
+|--------|----------|
+| Spotlight (app launcher + search) | <kbd>Cmd+Space</kbd> |
+| Switch between apps | <kbd>Cmd+Tab</kbd> |
+| Switch windows within same app | <kbd>Cmd+`</kbd> |
+| Quit app (fully) | <kbd>Cmd+Q</kbd> |
+| Hide app | <kbd>Cmd+H</kbd> |
+| Force quit | <kbd>Cmd+Option+Esc</kbd> |
+| Close window | <kbd>Cmd+W</kbd> |
+| Full-screen screenshot | <kbd>Cmd+Shift+3</kbd> |
+| Area screenshot | <kbd>Cmd+Shift+4</kbd> |
+| Screenshot options panel | <kbd>Cmd+Shift+5</kbd> |
+| Forward delete (Windows Backspace) | <kbd>Fn+Delete</kbd> |
+| Toggle hidden files in Finder (eg .git folder) | <kbd>Cmd+Shift+.</kbd> |
 
-### Adding short cuts to Finder
+### Mouse & Scrolling
 
-In Windows you'd add an Open With option in File Explorer, on macOS add an app to the Finder Menu then drag file/folder to app icon, simple and fast.
+Windows users often find macOS scroll direction counterintuitive when using a mouse.
 
-Add VS Code to Finder tool bar, then just drag a folder/file to the VS Code icon and it will open the target folder/file.
+- **Natural scrolling** matches trackpad feel but feels reversed on a traditional mouse
+- **Best solution with a Logitech mouse:** Use [Logi Options+](https://www.logitech.com/en-au/software/options.html) to set per-device scroll direction independent of the trackpad
+- **No Logitech mouse?** [Scroll Reverser](https://pilotmoon.com/scrollreverser/) is a free utility that lets you invert scroll direction for mice and trackpads independently
 
-- Install VS Code
-- In finder/Applications, hold VS Code icon and drag to Finder tool bar
+## Finder (File Explorer Equivalent)
 
-### Disable tags in the Finder folder
+From the **View** menu, enable:
 
-Never use them, disable from Finder -> Settings ->Sidebar -> disable recent tags
+- **Show Toolbar**
+- **Show Path Bar**
+- **Show Status Bar**
 
-## Window Navigation
+### Quick Look
 
-- On Windows everything is an app and <kbd>Windows Tab</kbd>
-- On macOS (and Ubuntu and Mint) you have the concept of Apps and Windows.
-    - Apps can have multiple windows, eg VS Code you have an instance of VS Code running and multiple Windows (projects) open. 
-    - To navigate between multiple windows of the same app - <kbd>use cmd + ~</kbd>. Super efficient way to navigate between windows or the same app like VS Code, Word etc.
-- Snap Windows - hold the Option key and drag Window to left or right and release.
-- You can resize snapped windows by grabbing slicer between windows and deragging to resize both snapped windows.
-- For Windows Powertoys equivalent windows management then use [Magnet](https://apps.apple.com/au/app/magnet/id441258766?mt=12
-Magnet) from the App Store or open source/free [Rectangle](https://github.com/rxhanson/Rectangle) 
+Press <kbd>Space</kbd> on any file in Finder for an instant preview — images, PDFs, videos, text files — without opening an app.
 
+### Add VS Code to Finder Toolbar
 
-### Minimize and Maximize windows
+Drag a folder or file directly onto the VS Code icon in the toolbar to open it instantly:
 
-As tempting as it seems to use the minimize icon on an app, you are better to hide an app with <kbd>cmd+h</kbd> as it plays better with the <kbd>cmd+tab</kbd> app selector.
+1. Install VS Code
+2. In Finder, navigate to **Applications**
+3. press and hold <kbd>cmd</kbd> and drag the VS Code icon in Applications folder ad **drag it onto the Finder toolbar**
 
+### Show Hidden Files
 
-### Search scope
+Press <kbd>Cmd+Shift+.</kbd> in Finder to toggle hidden files (dotfiles, `.git` folders, etc.).
 
-Finder -> Settings -> Advanced -> Search in current folder
+### Disable Sidebar Tags
 
-### New finder windows
+**Finder → Settings → Sidebar → uncheck Recent Tags**
 
-- I keep source in a folder names "GitHub" and mostly want to open that Folder when opening Finder.
-- Finder -> Settings -> General -> Select your preferred folder
+### Set Default Folder for New Finder Windows
 
+**Finder → Settings → General → New Finder windows show** — select your preferred folder (e.g. your `GitHub` folder).
 
-## Install Docker Desktop
+### Set Search Scope to Current Folder
 
-Install [Install Docker Desktop on Mac](https://docs.docker.com/desktop/setup/install/mac-install/), be sure to choose Apple Silion. Note, when you install you also be prommpted to install Rosetta for x64 emulation.
+**Finder → Settings → Advanced → When performing a search → Search the Current Folder**
 
-## Running Local LLMs
+## Window Management
 
-- Ollama or LM Studio
-- LM Studio allow you to run MLX optimised models, some 20% faster than GGUF models. So preferred.
+macOS has a key distinction from Windows: **apps and windows are separate concepts**. If you are familiar with Ubuntu and Mint Linus then it works in a similar way.
 
-## Utilites
+- An app can have multiple windows — e.g. VS Code can have several project windows open simultaneously
+- <kbd>Cmd+Tab</kbd> switches between **apps**, not windows
+- <kbd>Cmd+`</kbd> (backtick) switches between **windows of the same app** — very useful for VS Code, Word, browsers, etc.
 
-### Flycut 
+### Window Tips
 
-- [Flycut](https://apps.apple.com/au/app/flycut-clipboard-manager/id442160987?mt=12
-Flycut (Clipboard manager)) Clipboard manager - better/more accessible than built in Tahoe clipboartd manager.
+- **Snap windows:** Hover over the green full-screen button, or hold <kbd>Option</kbd> and drag a window to the left or right edge
+- **Resize snapped windows:** Grab the divider between two snapped windows and drag
+- **Hide vs Minimize:** Prefer <kbd>Cmd+H</kbd> to hide over clicking minimize — hidden apps integrate better with <kbd>Cmd+Tab</kbd>
 
-    - You'll need to add Flycut to the Settings -> Accessibility app list
-    - Customise flycut icon. Flycut -> preferences -> appearance -> White scissors
-    - Usage tips: Cmd + c to copy, shift + cmd + v to cycle through clipboard history.
+### Window Management Apps
 
-### Screen copy
+For a PowerToys FancyZones equivalent:
 
-There is a macOS screenshot utility but prefer [Teampaper: Screen recorder](https://apps.apple.com/au/app/teampaper-screen-recorder/id1199502670?mt=12
-Teampaper: Screen recorder) as more flex and efficient to use than built in macOS screenshot tools.
+- [Magnet](https://apps.apple.com/au/app/magnet/id441258766?mt=12) — App Store, paid but polished
+- [Rectangle](https://github.com/rxhanson/Rectangle) — free and open source
 
-For Windows users map the screen shot shortcut key to shift+cmd+s
+### Mission Control
 
-Set the following options:
-
-- Teampaper -> Settings -> hold shift+cmd+s
-- Teampaper -> Settings -> Open at Mac startup
-
-
-### Monitor Control
-
-For controlling non-Apple monitors from macOS install MonitorControl, its equivalent to Twinkle from the Windows App Store.
-
-- Full fat version from [MonitorControl](https://github.com/MonitorControl/MonitorControl) with support for both screen brightness and monitor volume control. Download the .dmg and install.
-- App store for just monitor brightness [MonitorControl Lite](https://apps.apple.com/au/app/monitorcontrol-lite/id1595464182?mt=12
-MonitorControl Lite)
-
-## Understanding Auto Started Apps
-
-From system settings-> General -> Login Items and Extensions. For starters ensure following apps auto started
-
-- Flycut
-- Teampaper
+Press <kbd>F3</kbd> or swipe up with three fingers on the trackpad to see all open windows across all apps — equivalent to Task View (<kbd>Win+Tab</kbd>) on Windows.
 
 ## Terminal
 
-Terminal is customizable, I normally mode closing window behaviour to "close if the shell existed cleanly"
+macOS ships with **zsh** as the default shell (analogous to PowerShell). The built-in Terminal app is at Applications → Utilities → Terminal.
 
-- Terminal -> Settings -> Shell -> When the shell exits and select desired behaviour.
+### Customise Terminal Exit Behaviour
+
+**Terminal → Settings → Shell → When the shell exits** → set to **Close if the shell exited cleanly**
+
+### Homebrew — Essential Package Manager
+
+[Homebrew](https://brew.sh) is the `winget`/`apt` of macOS. Install it first:
+
+```sh
+/bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
+```
+
+Then install tools like:
+
+```sh
+brew install git node python pyenv
+```
+
+Update brew catalog:
+
+```sh
+brew update
+```
+
+Upgrade installed brew apps:
+
+```sh
+brew upgrade
+```
+
+## Developer Tools
+
+### Docker Desktop
+
+Download [Docker Desktop for Mac](https://docs.docker.com/desktop/setup/install/mac-install/) — choose **Apple Silicon** if on an M-series Mac. During installation you'll be prompted to also install **Rosetta** for x86/x64 emulation — accept it.
+
+### Running Local LLMs
+
+- [Ollama](https://ollama.com) — CLI-based, great for scripting and API use
+- [LM Studio](https://lmstudio.ai) — GUI with support for MLX-optimised models, which run ~20% faster than GGUF models on Apple Silicon — preferred for M-series Macs
+
+## Utilities
+
+### Clipboard Manager — Flycut
+
+[Flycut](https://apps.apple.com/au/app/flycut-clipboard-manager/id442160987?mt=12) provides persistent clipboard history — far more accessible than the built-in clipboard.
+
+**Setup:**
+
+1. Add Flycut to **System Settings → Privacy & Security → Accessibility**
+2. Customise icon: **Flycut → Preferences → Appearance → White Scissors**
+
+**Usage:** <kbd>Cmd+C</kbd> to copy, <kbd>Shift+Cmd+V</kbd> to cycle through clipboard history
+
+### Screenshots — Teampaper Snap
+
+The built-in screenshot tool works, but [Teampaper Snap](https://apps.apple.com/au/app/teampaper-snap/id1199502670?mt=12) is more flexible and efficient.
+
+**Recommended for Windows users:** Map the shortcut to <kbd>Shift+Cmd+S</kbd> to match Windows muscle memory.
+
+**Setup:**
+
+1. **Teampaper → Settings** — set shortcut to <kbd>Shift+Cmd+S</kbd>
+2. Enable **Open at Mac Startup**
+
+### Monitor Brightness & Volume — MonitorControl
+
+Equivalent to Twinkle Tray on Windows, for controlling non-Apple external monitors.
+
+- [MonitorControl](https://github.com/MonitorControl/MonitorControl) — full version (brightness + volume), install via `.dmg`
+- [MonitorControl Lite](https://apps.apple.com/au/app/monitorcontrol-lite/id1595464182?mt=12) — App Store version (brightness only)
+
+## Managing Login Items (Startup Apps)
+
+**System Settings → General → Login Items & Extensions**
+
+Ensure these start automatically at login:
+
+- Flycut
+- Teampaper Snap
+- MonitorControl
+- Rectangle or Magnet (if using)
 
