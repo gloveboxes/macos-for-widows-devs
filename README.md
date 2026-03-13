@@ -6,14 +6,14 @@ A practical guide for developers making the switch from Windows to macOS.
 
 Before diving into settings, here are the fundamental mental model shifts:
 
-| Windows | macOS |
-|---------|-------|
-| <kbd>Ctrl</kbd> | <kbd>Cmd</kbd> (for most shortcuts) |
-| <kbd>Alt</kbd> | <kbd>Option</kbd> |
+| Windows              | macOS                                                           |
+| -------------------- | --------------------------------------------------------------- |
+| <kbd>Ctrl</kbd>      | <kbd>Cmd</kbd> (for most shortcuts)                             |
+| <kbd>Alt</kbd>       | <kbd>Option</kbd>                                               |
 | <kbd>Backspace</kbd> | <kbd>Delete</kbd> — use <kbd>Fn+Delete</kbd> for forward delete |
-| Task Manager | Activity Monitor |
-| File Explorer | Finder |
-| Start Menu / search | Spotlight (<kbd>Cmd+Space</kbd>) |
+| Task Manager         | Activity Monitor                                                |
+| File Explorer        | Finder                                                          |
+| Start Menu / search  | Spotlight (<kbd>Cmd+Space</kbd>)                                |
 
 > **Important:** Closing a window (clicking the red ×) does **not** quit the app on macOS — the app keeps running in the Dock. Use <kbd>Cmd+Q</kbd> to fully quit.
 
@@ -38,20 +38,20 @@ Enable function keys by default — recommended for VS Code and other dev tools:
 
 #### Essential Keyboard Shortcuts
 
-| Action | Shortcut |
-|--------|----------|
-| Spotlight (app launcher + search) | <kbd>Cmd+Space</kbd> |
-| Switch between apps (eg VS Code, Terminal) | <kbd>Cmd+Tab</kbd> |
-| Switch windows within same app | <kbd>Cmd+`</kbd> |
-| Quit app (fully) | <kbd>Cmd+Q</kbd> |
-| Hide app | <kbd>Cmd+H</kbd> |
-| Force quit | <kbd>Cmd+Option+Esc</kbd> |
-| Close window | <kbd>Cmd+W</kbd> |
-| Full-screen screenshot | <kbd>Cmd+Shift+3</kbd> |
-| Area screenshot | <kbd>Cmd+Shift+4</kbd> |
-| Screenshot options panel | <kbd>Cmd+Shift+5</kbd> |
-| Forward delete (Windows Backspace) | <kbd>Fn+Delete</kbd> |
-| Toggle hidden files in Finder (eg .git folder) | <kbd>Cmd+Shift+.</kbd> |
+| Action                                         | Shortcut                  |
+| ---------------------------------------------- | ------------------------- |
+| Spotlight (app launcher + search)              | <kbd>Cmd+Space</kbd>      |
+| Switch between apps (eg VS Code, Terminal)     | <kbd>Cmd+Tab</kbd>        |
+| Switch windows within same app                 | <kbd>Cmd+`</kbd>          |
+| Quit app (fully)                               | <kbd>Cmd+Q</kbd>          |
+| Hide app                                       | <kbd>Cmd+H</kbd>          |
+| Force quit                                     | <kbd>Cmd+Option+Esc</kbd> |
+| Close window                                   | <kbd>Cmd+W</kbd>          |
+| Full-screen screenshot                         | <kbd>Cmd+Shift+3</kbd>    |
+| Area screenshot                                | <kbd>Cmd+Shift+4</kbd>    |
+| Screenshot options panel                       | <kbd>Cmd+Shift+5</kbd>    |
+| Forward delete (Windows Backspace)             | <kbd>Fn+Delete</kbd>      |
+| Toggle hidden files in Finder (eg .git folder) | <kbd>Cmd+Shift+.</kbd>    |
 
 ### Mouse & Scrolling
 
@@ -69,7 +69,7 @@ From the **View** menu, enable:
 - **Show Path Bar**
 - **Show Status Bar**
 
-### Open Terminal in folder
+### Open a Terminal in a folder
 
 From the file path at the bottom of Finder, right mouse click on the desired location on the path and select "Open in Terminal".
 
@@ -230,4 +230,16 @@ For C dev
 ### Raspberry Pi Pico
 
 - Install the [Raspberry Pi Pico](https://marketplace.visualstudio.com/items?itemName=raspberry-pi.raspberry-pi-pico) extension, and then follow the instructions in the welcome page to install the SDK.
+
+
+## Xcode and GitHub Copilot for XCode
+
+1. Install Xcode from App Store
+2. Install [GitHub Copilot for Xcode](https://github.com/github/CopilotForXcode) with Brew
+
+    ```sh
+    brew install --cask github-copilot-for-xcode
+    ```
+    
+3. From Intelligence menu, enable "Allow external agents to use Xcode tools
 
