@@ -243,3 +243,138 @@ For C dev
 
 3. From Intelligence menu, enable "Allow external agents to use Xcode tools
 4. As of March 2026, Claude Sonnet 4.6 is a fun experience building your first macOS app.
+
+## Enrolling macOS
+
+See [Enroll your macOS device using the Company Portal app](https://learn.microsoft.com/en-us/intune/intune-service/user-help/enroll-your-device-in-intune-macos-cp)
+
+
+## Native Apple Container Framework
+
+Installing and using the native Apple **Container CLI** is straightforward on macOS 26 (Tahoe). It follows a similar workflow to Docker but leverages the **Virtualization framework** to run each container in its own isolated, lightweight micro-VM.
+
+Here is the step-by-step guide to installing the tool and running a PostgreSQL instance.
+
+---
+
+## 1. Installation
+
+The CLI tool is currently available as a signed package on GitHub or via Homebrew.
+
+### Option A: Via Homebrew (Recommended)
+
+```bash
+brew install container
+
+```
+
+### Option B: Manual Installation
+
+1. Go to the [Apple Container GitHub Releases](https://github.com/apple/container/releases).
+2. Download the latest `.pkg` installer (e.g., `container-1.0.0-installer-signed.pkg`).
+3. Run the installer and follow the on-screen prompts.
+
+### Step 2: Initialize the System
+
+Once installed, you must start the container service. The first time you run this, it will prompt you to download a **Linux kernel** (usually a Kata-containers-based kernel optimized for Apple silicon).
+
+```bash
+container system start
+
+```
+
+> **Note:** When prompted to install the recommended kernel, type `y`. This sets up the environment required to spawn the micro-VMs.
+
+---
+
+## 2. Running PostgreSQL (pgvector)
+
+Because the Apple Container framework uses OCI-compliant images, you can pull the official Postgres image directly from Docker Hub.
+
+### Step 1: Create a Persistent Volume
+
+To ensure your database data isn't lost when the container stops, create a local directory on your Mac to hold the data:
+
+```bash
+mkdir -p ~/postgres_data
+
+```
+
+### Step 2: Run the Postgres Container
+
+Use the `run` command. Note that unlike Docker, each container gets its own IP address, but you can still use port mapping to access it via `localhost`.
+
+```bash
+container run -d \
+  --name my-postgres \
+  -e POSTGRES_PASSWORD=mysecretpassword \
+  -p 5432:5432 \
+  -v ~/postgres_data:/var/lib/postgresql \
+  pgvector/pgvector:pg18-trixie
+
+```
+
+**Breaking down the flags:**
+
+* `-d`: Detached mode (runs in the background).
+* `--name`: Assigns a friendly name to the container.
+* `-e`: Sets environment variables (required for the Postgres password).
+* `-p 5432:5432`: Maps the container's port 5432 to your Mac's port 5432.
+* `-v`: Mounts your local folder into the container for data persistence.
+
+---
+
+### Enable PG Vector Extension
+
+Even though the image includes the pgvector binaries, you still need to enable the extension within your database. You can do this directly from your terminal:
+
+```bash
+container exec -it my-postgres psql -U postgres -c "CREATE EXTENSION IF NOT EXISTS vector;"
+```
+
+### Test Extension
+
+Run a quick check to see the pgvector version and ensure the M5 Pro's ARM-based SIMD optimizations (which pgvector uses for distance calculations) are working as expected:
+
+```bash
+container exec -it my-postgres psql -U postgres -c "\dx vector"
+```
+
+## 3. Managing and Connecting
+
+### Check Status
+
+To see your running container and its dedicated IP address:
+
+```bash
+container ls
+
+```
+
+### Connect via CLI
+
+If you want to run `psql` directly inside the container to create tables or check the version:
+
+```bash
+container exec -it my-postgres psql -U postgres
+
+```
+
+### Check Logs
+
+If the container fails to start, check the logs for errors:
+
+```bash
+container logs my-postgres
+
+```
+
+---
+
+## Key Tips for macOS 26
+
+* **Network Access:** If you cannot connect to `localhost:5432` from a GUI tool (like TablePlus or DBeaver), ensure that **Local Network** access is enabled for the "Container Runtime" in *System Settings > Privacy & Security > Local Network*.
+* **Resource Tuning:** If you notice Postgres is slow during heavy indexing, you can increase the VM resources:
+`container run --cpus 4 --memory 4g ...`
+
+Would you like me to help you create a `Containerfile` to pre-configure specific extensions like PostGIS or pgvector?
