@@ -226,6 +226,7 @@ For C dev
 ### Espressif
 
 - Install the [Espressif VS Code](https://marketplace.visualstudio.com/items?itemName=espressif.esp-idf-extension) Extension, and then follow the instructions in the welcome page to install the SDK.
+- limit parallel embedded C compiles to 6 parallel threads. By default, -j will enable extreme parallelism which slows build times considerably taking up to twice as long to compile when not limited to 6.
 
 ### Raspberry Pi Pico
 
