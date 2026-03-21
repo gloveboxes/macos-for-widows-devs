@@ -104,7 +104,7 @@ Press <kbd>Cmd+Shift+.</kbd> in Finder to toggle hidden files (dotfiles, `.git` 
 
 ## Window Management
 
-macOS has a key distinction from Windows: **apps and windows are separate concepts**. If you are familiar with Ubuntu and Mint Linus then it works in a similar way.
+macOS has a key distinction from Windows: **apps and windows are separate concepts**. If you are familiar with Ubuntu and Mint Linux then it works in a similar way.
 
 - An app can have multiple windows — e.g. VS Code can have several project windows open simultaneously
 - <kbd>Cmd+Tab</kbd> switches between **apps**, not windows
