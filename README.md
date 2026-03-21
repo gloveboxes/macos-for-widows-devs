@@ -226,7 +226,7 @@ For C dev
 ### Espressif
 
 - Install the [Espressif VS Code](https://marketplace.visualstudio.com/items?itemName=espressif.esp-idf-extension) Extension, and then follow the instructions in the welcome page to install the SDK.
-- Limit parallel C compiles to 6 threads. Without this limit, the default -j setting triggers excessive parallelism, which can double build times due to resource contention.
+- Limit parallel C compiles to 6 threads. Without this limit, the default -j setting triggers excessive parallelism, which can double build times due to resource contention. Tested on MacBook Pro M3 and M5 Pro models.
 
 ### Raspberry Pi Pico
 
