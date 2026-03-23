@@ -377,5 +377,3 @@ container logs my-postgres
 * **Network Access:** If you cannot connect to `localhost:5432` from a GUI tool (like TablePlus or DBeaver), ensure that **Local Network** access is enabled for the "Container Runtime" in *System Settings > Privacy & Security > Local Network*.
 * **Resource Tuning:** If you notice Postgres is slow during heavy indexing, you can increase the VM resources:
 `container run --cpus 4 --memory 4g ...`
-
-Would you like me to help you create a `Containerfile` to pre-configure specific extensions like PostGIS or pgvector?
