@@ -73,7 +73,6 @@ From the **View** menu, enable:
 
 From the file path at the bottom of Finder, right mouse click on the desired location on the path and select "Open in Terminal".
 
-
 ### Quick Look
 
 Press <kbd>Space</kbd> on any file in Finder for an instant preview — images, PDFs, videos, text files — without opening an app.
@@ -232,7 +231,6 @@ For C dev
 
 - Install the [Raspberry Pi Pico](https://marketplace.visualstudio.com/items?itemName=raspberry-pi.raspberry-pi-pico) extension, and then follow the instructions in the welcome page to install the SDK.
 
-
 ## Xcode and GitHub Copilot for XCode
 
 1. Install Xcode from App Store
@@ -248,7 +246,6 @@ For C dev
 ## Enrolling macOS
 
 See [Enroll your macOS device using the Company Portal app](https://learn.microsoft.com/en-us/intune/intune-service/user-help/enroll-your-device-in-intune-macos-cp)
-
 
 ## Native Apple Container Framework
 
@@ -317,11 +314,11 @@ container run -d \
 
 **Breaking down the flags:**
 
-* `-d`: Detached mode (runs in the background).
-* `--name`: Assigns a friendly name to the container.
-* `-e`: Sets environment variables (required for the Postgres password).
-* `-p 5432:5432`: Maps the container's port 5432 to your Mac's port 5432.
-* `-v`: Mounts your local folder into the container for data persistence.
+- `-d`: Detached mode (runs in the background).
+- `--name`: Assigns a friendly name to the container.
+- `-e`: Sets environment variables (required for the Postgres password).
+- `-p 5432:5432`: Maps the container's port 5432 to your Mac's port 5432.
+- `-v`: Mounts your local folder into the container for data persistence.
 
 ---
 
@@ -374,7 +371,78 @@ container logs my-postgres
 
 ## Key Tips for macOS 26
 
-* **Network Access:** If you cannot connect to `localhost:5432` from a GUI tool (like TablePlus or DBeaver), ensure that **Local Network** access is enabled for the "Container Runtime" in *System Settings > Privacy & Security > Local Network*.
-* **Resource Tuning:** If you notice Postgres is slow during heavy indexing, you can increase the VM resources:
+- **Network Access:** If you cannot connect to `localhost:5432` from a GUI tool (like TablePlus or DBeaver), ensure that **Local Network** access is enabled for the "Container Runtime" in *System Settings > Privacy & Security > Local Network*.
+- **Resource Tuning:** If you notice Postgres is slow during heavy indexing, you can increase the VM resources:
 `container run --cpus 4 --memory 4g ...`
 
+## Windows on ARM64 with Parallels Desktop
+
+### Python
+
+As at March 2026, recommend Python 3.12 for ARM64.
+
+### Building missing Python wheels on Windows on ARM64
+
+Here is a summary of the "Golden Configuration" for building Python wheels on Windows ARM64.
+
+---
+
+#### 🛠️ Windows ARM64 Python Build Environment
+
+##### 1. The Core Toolchain (Visual Studio)
+
+Standard "Desktop development with C++" isn't enough; you must explicitly add the ARM64 compilers.
+
+- **Install:** [Visual Studio Build Tools 2022](https://visualstudio.microsoft.com/visual-cpp-build-tools/).
+- **Required Individual Components:**
+  - `MSVC v143 - VS 2022 C++ ARM64 build tools (Latest)`
+  - `Windows 11 SDK` (Matches your OS version)
+  - `C++ CMake tools for Windows`
+
+##### 2. The "Short-Path" Infrastructure
+
+Windows has a legacy **MAX_PATH (260 characters)** limit. Python builds (like `lupa` or `aiohttp`) create deeply nested temporary folders that easily exceed this.
+
+- **Enable Long Paths (Admin PowerShell):**
+
+    ```powershell
+    Set-ItemProperty -Path 'HKLM:\System\CurrentControlSet\Control\FileSystem' -Name 'LongPathsEnabled' -Value 1
+    ```
+
+- **The Build Scratchpad:** Always keep a top-level directory (e.g., `C:\b`) for temporary build files to keep paths as short as possible.
+
+##### 3. Essential Python Build Tools
+
+Before trying to build complex wheels, ensure your virtual environment has the "Big Three" updated:
+
+```powershell
+python -m pip install --upgrade pip setuptools wheel
+python -m pip install cython  # Frequently required for C-extensions like Lupa
+```
+
+##### 4. The "Successful Build" Workflow
+
+When a standard `pip install` fails with `LNK1104` or "Metadata generation failed," use this sequence:
+
+1. **Redirect Temp Folders:**
+
+    ```powershell
+    $env:TEMP = "C:\b"
+    $env:TMP = "C:\b"
+    ```
+
+2. **Bypass Isolation:** Use `--no-build-isolation`. This forces `pip` to use the compilers and `cython` you already have installed, rather than trying to set up a new (and often broken) temporary environment.
+3. **The Command:**
+
+    ```powershell
+    pip install <package-name> --no-cache-dir --no-build-isolation
+    ```
+
+##### 5. Troubleshooting Cheat Sheet
+
+| Error                 | Probable Cause                 | Fix                                                   |
+| :-------------------- | :----------------------------- | :---------------------------------------------------- |
+| **LNK1104**           | Path too long or file locked.  | Use `C:\b` and `$env:TEMP`.                           |
+| **Rust not found**    | Missing Rust compiler.         | Install [Rustup](https://rustup.rs/) (ARM64 version). |
+| **SOABI mismatch**    | Python version too new (3.14). | Downgrade to Python 3.12 or 3.13.                     |
+| **Permission Denied** | Misinterpreted `--build` flag. | Use the `$env:TEMP` method instead.                   |
