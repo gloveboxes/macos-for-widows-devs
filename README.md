@@ -446,3 +446,75 @@ When a standard `pip install` fails with `LNK1104` or "Metadata generation faile
 | **Rust not found**    | Missing Rust compiler.         | Install [Rustup](https://rustup.rs/) (ARM64 version). |
 | **SOABI mismatch**    | Python version too new (3.14). | Downgrade to Python 3.12 or 3.13.                     |
 | **Permission Denied** | Misinterpreted `--build` flag. | Use the `$env:TEMP` method instead.                   |
+
+## Guide: Installing Rust & OpenSSL on Windows ARM64
+
+This guide explains how to set up a native ARM64 development environment for Rust and Python packages (like `cryptography`) that require OpenSSL compilation.
+
+---
+
+## 1. Install C++ Build Tools (The Linker)
+
+Rust requires the Microsoft Visual C++ (MSVC) linker to create Windows executables.
+
+1. Download the [Visual Studio Installer](https://visualstudio.microsoft.com/downloads/).
+2. Select the workload: **Desktop development with C++**.
+3. **CRITICAL:** Under the "Installation details" (right-hand panel), check:
+   - **MSVC v143 - VS 2022 C++ ARM64 build tools (Latest)**
+   - **Windows 11 SDK** (or latest version available).
+4. Install and restart your computer.
+
+---
+
+## 2. Install Rust (Native ARM64)
+
+1. Download **`rustup-init.exe`** from [rustup.rs](https://rustup.rs).
+2. Run the installer. It should automatically detect `aarch64-pc-windows-msvc`.
+3. Choose **Option 1** (Proceed with default installation).
+4. Verify in a new PowerShell window:
+
+   ```powershell
+   rustc --version
+   # Should show: host: aarch64-pc-windows-msvc
+   ```
+
+## 3. Setup vcpkg and OpenSSL
+
+We use vcpkg to compile a native ARM64 version of OpenSSL, which is required for many encryption-based libraries.
+
+Clone the vcpkg repository:
+
+```PowerShell
+cd C:\Data\GitHub  # Or your preferred directory
+git clone https://github.com/microsoft/vcpkg.git
+cd vcpkg
+```
+
+Bootstrap the tool:
+
+```PowerShell
+.\bootstrap-vcpkg.bat
+```
+
+Install OpenSSL for ARM64:
+
+```PowerShell
+.\vcpkg.exe install openssl:arm64-windows
+```
+
+(This step takes a few minutes as it compiles the source code for your processor).
+
+## 4. Configure Environment Variables
+
+You must tell the Rust compiler where to find the OpenSSL files you just built. Run these in your current PowerShell session:
+
+```PowerShell
+# Update the path if you installed vcpkg elsewhere
+$vcpkgRoot = "C:\Data\GitHub\vcpkg\installed\arm64-windows"
+
+$env:OPENSSL_DIR = "$vcpkgRoot"
+$env:OPENSSL_LIB_DIR = "$vcpkgRoot\lib"
+$env:OPENSSL_INCLUDE_DIR = "$vcpkgRoot\include"
+```
+
+Note: These variables only last for the current terminal session. If you close PowerShell, you must re-run these three $env lines before compiling again.
