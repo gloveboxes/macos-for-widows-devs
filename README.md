@@ -83,7 +83,7 @@ Drag a folder or file directly onto the VS Code icon in the toolbar to open it i
 
 1. Install VS Code
 2. In Finder, navigate to **Applications**
-3. press and hold <kbd>cmd</kbd> and drag the VS Code icon in Applications folder ad **drag it onto the Finder toolbar**
+3. Press and hold <kbd>Cmd</kbd> and drag the VS Code icon from the Applications folder onto the Finder toolbar
 
 ### Show Hidden Files
 
@@ -128,7 +128,7 @@ Press <kbd>F3</kbd> or swipe up with three fingers on the trackpad to see all op
 
 ## Terminal
 
-macOS ships with **zsh** as the default shell (analogous to PowerShell). The built-in Terminal app is at Applications → Utilities → Terminal.
+macOS ships with **zsh** as the default shell (similar to bash on Linux). The built-in Terminal app is at Applications → Utilities → Terminal.
 
 ### Customise Terminal Exit Behaviour
 
@@ -215,8 +215,8 @@ Ensure these start automatically at login:
 
 ## Productivity apps
 
-- macOS includes free Pages (Word equiv), Numbers (Excel), Keynote (Powerpoint).
-- MS Office on macOS is very good, Outlook very good, as is OneDrive and OneNote.
+- macOS includes free Pages (Word equivalent), Numbers (Excel), Keynote (PowerPoint).
+- MS Office on macOS works well, with particular praise for Outlook, OneDrive, and OneNote.
 
 ## Microcontroller Dev
 
@@ -231,17 +231,17 @@ For C dev
 
 - Install the [Raspberry Pi Pico](https://marketplace.visualstudio.com/items?itemName=raspberry-pi.raspberry-pi-pico) extension, and then follow the instructions in the welcome page to install the SDK.
 
-## Xcode and GitHub Copilot for XCode
+## Xcode and GitHub Copilot for Xcode
 
 1. Install Xcode from App Store
-2. Install [GitHub Copilot for Xcode](https://github.com/github/CopilotForXcode) with Brew
+2. Install [GitHub Copilot for Xcode](https://github.com/github/CopilotForXcode) via Brew:
 
-    ```sh
-    brew install --cask github-copilot-for-xcode
-    ```
+   ```sh
+   brew install --cask github-copilot-for-xcode
+   ```
 
-3. From Intelligence menu, enable "Allow external agents to use Xcode tools
-4. As of March 2026, Claude Sonnet 4.6 is a fun experience building your first macOS app.
+3. From the Intelligence menu, enable "Allow external agents to use Xcode tools"
+4. Popular models for building macOS apps include Claude Sonnet.
 
 ## Enrolling macOS
 
@@ -309,14 +309,6 @@ container run -d \
   -p 5432:5432 \
   -v ~/postgres_data:/var/lib/postgresql \
   pgvector/pgvector:pg18-trixie
-
-```
-
-**Breaking down the flags:**
-
-- `-d`: Detached mode (runs in the background).
-- `--name`: Assigns a friendly name to the container.
-- `-e`: Sets environment variables (required for the Postgres password).
 - `-p 5432:5432`: Maps the container's port 5432 to your Mac's port 5432.
 - `-v`: Mounts your local folder into the container for data persistence.
 
@@ -373,7 +365,9 @@ container logs my-postgres
 
 - **Network Access:** If you cannot connect to `localhost:5432` from a GUI tool (like TablePlus or DBeaver), ensure that **Local Network** access is enabled for the "Container Runtime" in *System Settings > Privacy & Security > Local Network*.
 - **Resource Tuning:** If you notice Postgres is slow during heavy indexing, you can increase the VM resources:
-`container run --cpus 4 --memory 4g ...`
+    ```bash
+    container run --cpus 4 --memory 4g ...
+    ```
 
 ## Windows on ARM64 with Parallels Desktop
 
