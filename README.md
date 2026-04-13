@@ -236,9 +236,9 @@ For C dev
 1. Install Xcode from App Store
 2. Install [GitHub Copilot for Xcode](https://github.com/github/CopilotForXcode) via Brew:
 
-   ```sh
-   brew install --cask github-copilot-for-xcode
-   ```
+    ```sh
+    brew install --cask github-copilot-for-xcode
+    ```
 
 3. From the Intelligence menu, enable "Allow external agents to use Xcode tools"
 4. Popular models for building macOS apps include Claude Sonnet.
@@ -263,7 +263,6 @@ The CLI tool is currently available as a signed package on GitHub or via Homebre
 
 ```bash
 brew install container
-
 ```
 
 ### Option B: Manual Installation
@@ -272,13 +271,24 @@ brew install container
 2. Download the latest `.pkg` installer (e.g., `container-1.0.0-installer-signed.pkg`).
 3. Run the installer and follow the on-screen prompts.
 
-### Step 2: Initialize the System
+### Initialize the System
 
-Once installed, you must start the container service. The first time you run this, it will prompt you to download a **Linux kernel** (usually a Kata-containers-based kernel optimized for Apple silicon).
+Once installed, start the container service. The first time you run this, it will prompt you to download a **Linux kernel** (usually a Kata-containers-based kernel optimized for Apple silicon).
 
 ```bash
 container system start
+```
 
+To stop the container service:
+
+```bash
+container system stop
+```
+
+Check the status of container services:
+
+```bash
+container system status
 ```
 
 > **Note:** When prompted to install the recommended kernel, type `y`. This sets up the environment required to spawn the micro-VMs.
@@ -289,16 +299,15 @@ container system start
 
 Because the Apple Container framework uses OCI-compliant images, you can pull the official Postgres image directly from Docker Hub.
 
-### Step 1: Create a Persistent Volume
+### Create a Persistent Volume
 
 To ensure your database data isn't lost when the container stops, create a local directory on your Mac to hold the data:
 
 ```bash
 mkdir -p ~/postgres_data
-
 ```
 
-### Step 2: Run the Postgres Container
+### Run the Postgres Container
 
 Use the `run` command. Note that unlike Docker, each container gets its own IP address, but you can still use port mapping to access it via `localhost`.
 
@@ -309,6 +318,8 @@ container run -d \
   -p 5432:5432 \
   -v ~/postgres_data:/var/lib/postgresql \
   pgvector/pgvector:pg18-trixie
+```
+
 - `-p 5432:5432`: Maps the container's port 5432 to your Mac's port 5432.
 - `-v`: Mounts your local folder into the container for data persistence.
 
@@ -330,6 +341,8 @@ Run a quick check to see the pgvector version and ensure the M5 Pro's ARM-based 
 container exec -it my-postgres psql -U postgres -c "\dx vector"
 ```
 
+---
+
 ## 3. Managing and Connecting
 
 ### Check Status
@@ -338,7 +351,6 @@ To see your running container and its dedicated IP address:
 
 ```bash
 container ls
-
 ```
 
 ### Connect via CLI
@@ -347,7 +359,6 @@ If you want to run `psql` directly inside the container to create tables or chec
 
 ```bash
 container exec -it my-postgres psql -U postgres
-
 ```
 
 ### Check Logs
@@ -356,18 +367,97 @@ If the container fails to start, check the logs for errors:
 
 ```bash
 container logs my-postgres
-
 ```
 
 ---
 
-## Key Tips for macOS 26
+## Useful Container Commands
+
+### Common Operations
+
+**List running containers:**
+```bash
+container ls
+```
+
+**Stop a running container:**
+```bash
+container stop my-postgres
+```
+
+**Remove a stopped container:**
+```bash
+container rm my-postgres
+```
+
+**Remove all stopped containers:**
+```bash
+container prune
+```
+
+**View container logs:**
+```bash
+container logs my-postgres
+```
+
+**Inspect container details:**
+```bash
+container inspect my-postgres
+```
+
+### Running Containers with Options
+
+**Set CPU and memory limits:**
+```bash
+container run -d --name myapp --cpus 2 --memory 2g myimage
+```
+
+**Set environment variables:**
+```bash
+container run -d --name myapp -e API_KEY=secret -e DEBUG=true myimage
+```
+
+**Mount volumes:**
+```bash
+container run -d --name myapp -v ./data:/app/data myimage
+```
+
+**Run with a custom user:**
+```bash
+container run -d --name myapp -u 1000 myimage
+```
+
+**Run interactively with TTY:**
+```bash
+container run -it --name myapp myimage
+```
+
+**Run with SSH agent forwarding:**
+```bash
+container run -d --ssh myimage
+```
+
+### System Management
+
+**Check disk usage:**
+```bash
+container system df
+```
+
+**Manage container networks:**
+```bash
+container network ls
+container network create mynetwork
+```
+
+---
 
 - **Network Access:** If you cannot connect to `localhost:5432` from a GUI tool (like TablePlus or DBeaver), ensure that **Local Network** access is enabled for the "Container Runtime" in *System Settings > Privacy & Security > Local Network*.
 - **Resource Tuning:** If you notice Postgres is slow during heavy indexing, you can increase the VM resources:
-    ```bash
-    container run --cpus 4 --memory 4g ...
-    ```
+
+  ```bash
+  container run --cpus 4 --memory 4g ...
+  ```
 
 ## Windows on ARM64 with Parallels Desktop
 
